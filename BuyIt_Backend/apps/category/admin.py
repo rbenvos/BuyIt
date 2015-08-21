@@ -4,7 +4,7 @@ from apps.category.models import Category, Subcategory
 
 class CategoryAdmin(admin.ModelAdmin): #ImportExportModelAdmin,
 
-    list_display = ['id','active','name','avatar','getSubcategories','created_at','modified_at']
+    list_display = ['id','active','name','getSubcategories','created_at','modified_at']
     list_display_links = ['id','name']
     list_filter = ['active','name','created_at','modified_at']
     actions=['make_active','make_desactive']
@@ -30,7 +30,7 @@ class SubcategoryResource(resources.ModelResource):
 """
 
 class SubcategoryAdmin(admin.ModelAdmin): #ImportExportModelAdmin,
-    list_display = ['id','active','name','avatar','created_at','modified_at']
+    list_display = ['id','active','name','created_at','modified_at']
     list_display_links = ['id','name']
     list_filter = ['active','name','created_at','modified_at']
     actions=['make_active','make_desactive']

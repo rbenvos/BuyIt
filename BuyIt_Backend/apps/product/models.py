@@ -38,20 +38,21 @@ Clase producto
 class Product(models.Model):
 
     UNITS = (
-        ('kg','Kilogramos'),
-        ('l','Litros')
+        ('kg', 'Kilogramos'),
+        ('l', 'Litros')
     )
 
     name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
-    #avatar = models.ImageField(blank=True)
-    quantity = models.PositiveIntegerField(default= 0,blank=True)
-    measure = models.CharField(max_length=3, choices=UNITS,blank=True)
+    quantity = models.PositiveIntegerField(default=0, blank=True)
+    measure = models.CharField(max_length=3, choices=UNITS, blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
+        """
+        On save, update timestamps
+        """
         if not self.id:
             self.created_at = datetime.datetime.today()
         self.modified_at = datetime.datetime.today()

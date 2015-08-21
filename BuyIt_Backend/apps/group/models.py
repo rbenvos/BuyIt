@@ -1,18 +1,19 @@
 import datetime
 from django.db import models
 from apps.order.models import Order
-from apps.user.models import User
+from apps.privateuser.models import PrivateUser
 
 """
 Clase grupo
 """
 
+
 class Group(models.Model):
     name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
-    orders = models.ManyToManyField(Order,blank=True)
-    #avatar = models.ImageField(blank=True)
-    users = models.ManyToManyField(User,blank=True)
+    orders = models.ManyToManyField(Order, blank=True)
+    users = models.ManyToManyField(PrivateUser, blank=True)
+    settings = models.ForeignKey("GroupSetting", blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -26,10 +27,14 @@ class Group(models.Model):
     def __unicode__(self):
         return str(self.id) + " " + self.name
 
-    def groupUsers(self):
+    def group_users(self):
         return self.users.all()
-    groupUsers.short_description = "Users"
+    group_users.short_description = "Users"
 
-    def groupOrders(self):
+    def group_orders(self):
         return self.orders.all()
-    groupOrders.short_description = "Orders"
+    group_orders.short_description = "Orders"
+
+
+class GroupSetting(models.Model):
+    name = models.CharField(max_length=200)

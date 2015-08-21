@@ -1,14 +1,14 @@
 from django.contrib import admin
-from models import User
+from models import PrivateUser
 
 """
 Administracion User
 """
 
 
-class UserAdmin(admin.ModelAdmin):
+class PrivateUserAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('User information', {
+        ('PrivateUser information', {
             'fields': [('name', 'last_name'), 'email', 'password','active']
         }),
         ('Device', {
@@ -35,4 +35,4 @@ class UserAdmin(admin.ModelAdmin):
     make_desactive.short_description = "Mark selected as desactive"
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(PrivateUser, PrivateUserAdmin)
