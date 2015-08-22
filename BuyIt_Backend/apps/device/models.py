@@ -5,6 +5,7 @@ from django.db import models
 Clase telefono
 """
 
+
 class Device(models.Model):
 
     TYPE_OS = (
@@ -19,8 +20,6 @@ class Device(models.Model):
         ('TB', 'Tablet')
     )
 
-    #Intentar meter mas datos del telefono, ver si se pueden extraer.
-
     id_device = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
     type = models.CharField(max_length=3, choices=TYPE_DEVICE, blank=True)
@@ -29,7 +28,9 @@ class Device(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
+        """
+        On save, update timestamps
+        """
         if not self.id:
             self.created_at = datetime.datetime.today()
         self.modified_at = datetime.datetime.today()
@@ -39,9 +40,9 @@ class Device(models.Model):
         return self.os + " " + self.id_device
 
     def users(self):
-        return self.user_set.all()
+        return self.privateuser_set.all()
     users.short_description = "User"
 
-    def numUsers(self):
-        return self.user_set.all().count()
-    numUsers.short_description = "Num User"
+    def num_users(self):
+        return self.privateuser_set.all().count()
+    num_users.short_description = "Num User"

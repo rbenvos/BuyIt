@@ -1,4 +1,5 @@
 from django.contrib import admin
+from apps.device.models import Device
 from models import PrivateUser, Friend
 
 """
@@ -11,14 +12,14 @@ class FriendInline(admin.TabularInline):
     fk_name = "user"
 
 
+class DeviceInline(admin.TabularInline):
+    model = PrivateUser.device.through
+
+
 class PrivateUserAdmin(admin.ModelAdmin):
     fieldsets = (
         ('User information', {
             'fields': [('name', 'last_name'), 'email', 'password','active']
-        }),
-        ('Device', {
-            'classes': ('wide',),
-            'fields': ['device']
         }),
         ('Friends', {
             'classes': ('collapse',),
@@ -32,7 +33,7 @@ class PrivateUserAdmin(admin.ModelAdmin):
     search_fields = ['id','name', 'last_name','email']
     actions = ['make_active','make_desactive']
     inlines = [
-        FriendInline,
+        DeviceInline, FriendInline
     ]
 
 
