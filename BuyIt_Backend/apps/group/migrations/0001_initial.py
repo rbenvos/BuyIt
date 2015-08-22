@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('order', '0001_initial'),
-        ('member', '0001_initial'),
     ]
 
     operations = [
@@ -21,7 +20,6 @@ class Migration(migrations.Migration):
                 ('active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(default=datetime.datetime.now, editable=False)),
                 ('modified_at', models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)),
-                ('members', models.ManyToManyField(to='member.Member', blank=True)),
                 ('orders', models.ManyToManyField(to='order.Order', blank=True)),
             ],
         ),
@@ -30,11 +28,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200)),
+                ('active', models.BooleanField(default=False)),
             ],
         ),
         migrations.AddField(
             model_name='group',
             name='settings',
-            field=models.ForeignKey(to='group.GroupSetting', blank=True),
+            field=models.ManyToManyField(to='group.GroupSetting', blank=True),
         ),
     ]

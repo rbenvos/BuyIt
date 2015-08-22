@@ -16,7 +16,15 @@ class Migration(migrations.Migration):
             name='Friend',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('admin', models.BooleanField(default=False)),
+                ('created_at', models.DateTimeField(default=datetime.datetime.now, editable=False)),
+                ('active', models.BooleanField(default=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Phone',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('phone', models.CharField(unique=True, max_length=9)),
                 ('created_at', models.DateTimeField(default=datetime.datetime.now, editable=False)),
                 ('active', models.BooleanField(default=True)),
             ],
@@ -34,6 +42,12 @@ class Migration(migrations.Migration):
                 ('modified_at', models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)),
                 ('device', models.ManyToManyField(to='device.Device', blank=True)),
                 ('friends', models.ManyToManyField(to='private_user.Friend', blank=True)),
+                ('phones', models.ForeignKey(blank=True, to='private_user.Phone', null=True)),
             ],
+        ),
+        migrations.AddField(
+            model_name='friend',
+            name='user',
+            field=models.ForeignKey(to='private_user.PrivateUser', null=True),
         ),
     ]

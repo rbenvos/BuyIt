@@ -37,6 +37,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='item',
             name='product',
-            field=models.ForeignKey(to='product.Product'),
+            field=models.ForeignKey(blank=True, to='product.Product', null=True),
         ),
     ]

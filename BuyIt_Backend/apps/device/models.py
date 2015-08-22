@@ -37,7 +37,7 @@ class Device(models.Model):
         return super(Device, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.os + " " + self.id_device
+        return self.os + " - " + self.id_device
 
     def users(self):
         return self.privateuser_set.all()

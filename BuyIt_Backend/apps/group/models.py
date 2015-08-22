@@ -1,6 +1,5 @@
 import datetime
 from django.db import models
-from apps.member.models import Member
 from apps.order.models import Order
 
 """
@@ -12,7 +11,6 @@ class Group(models.Model):
     name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
     orders = models.ManyToManyField(Order, blank=True)
-    members = models.ManyToManyField(Member, blank=True)
     settings = models.ManyToManyField("GroupSetting", blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
@@ -30,7 +28,7 @@ class Group(models.Model):
         return str(self.id) + " " + self.name
 
     def group_users(self):
-        return self.members.all()
+        return self.member_set.all()
     group_users.short_description = "Users"
 
     def group_orders(self):

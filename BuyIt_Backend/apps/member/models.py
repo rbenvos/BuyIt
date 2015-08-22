@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from apps.group.models import Group
 from apps.private_user.models import PrivateUser
 
 
@@ -7,6 +8,7 @@ class Member(models.Model):
     active = models.BooleanField(default=True)
     admin = models.BooleanField(default=True)
     private_user = models.ForeignKey(PrivateUser, blank=True, null=True)
+    group = models.ForeignKey(Group, blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -20,8 +22,4 @@ class Member(models.Model):
         return super(Member, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return str(self.id) + ' ' + self.private_user.name + ' ' + self.private_user.last_name
-
-    def get_group(self):
-        return self.group_set.all()
-    get_group.short_description = "Group"
+        return str(self.id)

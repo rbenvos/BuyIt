@@ -15,6 +15,7 @@ class PrivateUser(models.Model):
     device = models.ManyToManyField(Device, blank=True)
     active = models.BooleanField(default=True)
     friends = models.ManyToManyField("Friend", blank=True)
+    phones = models.ForeignKey("Phone", blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -62,16 +63,31 @@ class PrivateUser(models.Model):
         return self.device.all().count()
     get_num_devices.short_description = 'Num devices'
 
+"""
     def get_groups(self):
-        return self.group_set.all()
+        return self.member_set.all()
     get_groups.short_description = 'Groups'
 
     def get_num_groups(self):
-        return self.group_set.all().count()
+        return self.member_set.all().count()
     get_num_groups.short_description = 'Num groups'
+
+    def get_num_groups_active(self):
+        return self.member_set.filter(active=True).count()
+    get_num_groups_active.short_description = 'Num groups active'
+"""
 
 
 class Friend(models.Model):
-    user = models.ForeignKey("PrivateUser", default=False, null=True)
+    user = models.ForeignKey("PrivateUser", null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     active = models.BooleanField(default=True)
+
+
+class Phone(models.Model):
+    phone = models.CharField(max_length=9, unique=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    active = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return str(self.id) + " - " + self.phone

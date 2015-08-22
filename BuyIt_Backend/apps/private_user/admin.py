@@ -1,6 +1,6 @@
 from django.contrib import admin
-from apps.device.models import Device
-from models import PrivateUser, Friend
+from apps.member.admin import MemberInline
+from models import PrivateUser, Friend, Phone
 
 """
 Administracion User
@@ -9,11 +9,11 @@ Administracion User
 
 class FriendInline(admin.TabularInline):
     model = Friend
-    fk_name = "user"
 
 
 class DeviceInline(admin.TabularInline):
     model = PrivateUser.device.through
+    extra = 1
 
 
 class PrivateUserAdmin(admin.ModelAdmin):
@@ -21,20 +21,16 @@ class PrivateUserAdmin(admin.ModelAdmin):
         ('User information', {
             'fields': [('name', 'last_name'), 'email', 'password','active']
         }),
-        ('Friends', {
-            'classes': ('collapse',),
-            'fields': ['friends']
+        ('Phone information', {
+            'fields': ['phones']
         }),
     )
-    list_display = ['id','active','email','name','last_name','get_num_friends_active','get_num_devices',
-                    'get_num_groups','created_at','modified_at']
+    list_display = ['id','active','email','name','last_name','created_at','modified_at'] #,'get_num_friends_active','get_num_devices','get_num_groups_active',
     list_display_links = ['name', 'last_name','email']
     list_filter = ['active','created_at','modified_at']
     search_fields = ['id','name', 'last_name','email']
     actions = ['make_active','make_desactive']
-    inlines = [
-        DeviceInline, FriendInline
-    ]
+    inlines = [DeviceInline, FriendInline, MemberInline]
 
 
     def make_active(self, queryset):
@@ -46,4 +42,9 @@ class PrivateUserAdmin(admin.ModelAdmin):
     make_desactive.short_description = "Mark selected as desactive"
 
 
+class PhoneAdmin(admin.ModelAdmin):
+    model = Phone
+
+
 admin.site.register(PrivateUser, PrivateUserAdmin)
+admin.site.register(Phone, PhoneAdmin)
