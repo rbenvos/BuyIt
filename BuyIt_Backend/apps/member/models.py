@@ -21,3 +21,7 @@ class Member(models.Model):
 
     def __unicode__(self):
         return str(self.id) + ' ' + self.private_user.name + ' ' + self.private_user.last_name
+
+    def get_group(self):
+        return self.group_set.all()
+    get_group.short_description = "Group"

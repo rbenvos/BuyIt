@@ -4,8 +4,8 @@ from apps.member.models import Member
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ['id','admin','active','private_user','created_at','modified_at']
-    list_display_links = ['id']
+    list_display = ['id','active','admin','private_user','get_group', 'created_at','modified_at']
+    list_display_links = ['id', 'private_user']
     list_filter = ['admin','active','created_at','modified_at']
     fieldsets = (
         ('Member information', {
