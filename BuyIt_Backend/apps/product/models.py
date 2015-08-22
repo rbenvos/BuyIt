@@ -25,9 +25,9 @@ class Item(models.Model):
     def __unicode__(self):
         return str(self.id)
 
-    def getOrder(self):
+    def get_order(self):
         return self.order_set.all()
-    getOrder.short_description = 'Order'
+    get_order.short_description = 'Order'
 
 
 """

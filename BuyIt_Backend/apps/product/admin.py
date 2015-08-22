@@ -44,7 +44,7 @@ class ProductAdmin(admin.ModelAdmin): #ImportExportModelAdmin,
 Administracion Item
 """
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['id','active','purchased','amount','product','getOrder','created_at','modified_at']
+    list_display = ['id','active','purchased','amount','product','get_order','created_at','modified_at']
     list_display_links = ['id']
     list_filter = ['active','purchased','created_at','modified_at']
     actions=['make_active','make_desactive']

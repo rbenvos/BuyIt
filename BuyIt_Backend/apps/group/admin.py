@@ -5,7 +5,7 @@ from models import Group
 Administracion Group
 """
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['id','name','active','groupUsers','groupOrders','created_at','modified_at']
+    list_display = ['id','name','active','group_users','group_orders','created_at','modified_at']
     list_display_links = ['id','name']
     list_filter = ['active','created_at','modified_at']
 

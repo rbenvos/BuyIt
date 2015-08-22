@@ -41,8 +41,9 @@ INSTALLED_APPS = (
     'apps.group',
     'apps.order',
     'apps.product',
-    'apps.privateuser',
+    'apps.private_user',
     'apps.category',
+    'apps.member',
 )
 
 MIDDLEWARE_CLASSES = (

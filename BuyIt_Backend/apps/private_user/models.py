@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from apps.device.models import Device
+from apps.member.models import Member
 
 """
 Clase usuario
@@ -14,7 +15,7 @@ class PrivateUser(models.Model):
     last_name = models.CharField(max_length=200, blank=True)
     device = models.ManyToManyField(Device, blank=True)
     active = models.BooleanField(default=True)
-    friends = models.ManyToManyField("PrivateUser", blank=True)
+    friends = models.ManyToManyField("Friend", blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -69,3 +70,9 @@ class PrivateUser(models.Model):
     def get_num_groups(self):
         return self.group_set.all().count()
     get_num_groups.short_description = 'Num groups'
+
+
+class Friend(models.Model):
+    admin = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    active = models.BooleanField(default=True)

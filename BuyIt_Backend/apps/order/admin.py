@@ -6,7 +6,7 @@ from models import Order
 Administracion Order
 """
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id','name','active','getGroups','orderNumProducts','created_at','modified_at']
+    list_display = ['id','name','active','get_groups','order_num_products','created_at','modified_at']
     list_display_links = ['id','name']
     list_filter = ['active','created_at','modified_at']
 

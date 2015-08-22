@@ -8,7 +8,7 @@ Administracion User
 
 class PrivateUserAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('PrivateUser information', {
+        ('User information', {
             'fields': [('name', 'last_name'), 'email', 'password','active']
         }),
         ('Device', {
@@ -20,7 +20,8 @@ class PrivateUserAdmin(admin.ModelAdmin):
             'fields': ['friends']
         }),
     )
-    list_display = ['id','active','email','name','last_name','getNumFriendsActive','getNumDevices','getNumGroups','created_at','modified_at']
+    list_display = ['id','active','email','name','last_name','get_num_friends_active','get_num_devices',
+                    'get_num_groups','created_at','modified_at']
     list_display_links = ['name', 'last_name','email']
     list_filter = ['active','created_at','modified_at']
     search_fields = ['id','name', 'last_name','email']

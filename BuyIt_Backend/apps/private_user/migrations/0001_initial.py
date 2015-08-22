@@ -13,7 +13,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name='Friend',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('admin', models.BooleanField(default=False)),
+                ('created_at', models.DateTimeField(default=datetime.datetime.now, editable=False)),
+                ('active', models.BooleanField(default=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PrivateUser',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('email', models.EmailField(unique=True, max_length=200)),
@@ -24,7 +33,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(default=datetime.datetime.now, editable=False)),
                 ('modified_at', models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)),
                 ('device', models.ManyToManyField(to='device.Device', blank=True)),
-                ('friends', models.ManyToManyField(to='user.User', blank=True)),
+                ('friends', models.ManyToManyField(to='private_user.Friend', blank=True)),
             ],
         ),
     ]
