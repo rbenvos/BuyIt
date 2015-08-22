@@ -1,12 +1,12 @@
 import datetime
-from django.contrib.auth.models import User
 from django.db import models
+from apps.private_user.models import PrivateUser
 
 
 class Member(models.Model):
     active = models.BooleanField(default=True)
     admin = models.BooleanField(default=True)
-    private_user = models.ForeignKey(User, blank=True)
+    private_user = models.ForeignKey(PrivateUser, blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -20,4 +20,4 @@ class Member(models.Model):
         return super(Member, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id) + ' ' + self.private_user.name + ' ' + self.private_user.last_name

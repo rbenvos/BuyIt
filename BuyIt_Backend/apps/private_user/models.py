@@ -1,7 +1,6 @@
 import datetime
 from django.db import models
 from apps.device.models import Device
-from apps.member.models import Member
 
 """
 Clase usuario
@@ -73,6 +72,6 @@ class PrivateUser(models.Model):
 
 
 class Friend(models.Model):
-    admin = models.BooleanField(default=False)
+    user = models.ForeignKey("PrivateUser", default=False, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     active = models.BooleanField(default=True)

@@ -33,7 +33,7 @@ Clase subcategoria
 class Subcategory(models.Model):
     name = models.CharField(max_length=200, unique=True)
     active = models.BooleanField(default=True)
-    category = models.ForeignKey("Category", blank=True)
+    category = models.ForeignKey("Category", blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 

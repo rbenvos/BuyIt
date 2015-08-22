@@ -1,4 +1,5 @@
 from django.contrib import admin
+from apps.group.admin import OrderListInline
 from models import Order
 
 
@@ -21,6 +22,9 @@ class OrderAdmin(admin.ModelAdmin):
     )
     search_fields = ['id','name']
     actions=['make_active','make_desactive']
+    inlines = [
+        OrderListInline,
+    ]
 
     def make_active(modeladmin, request, queryset):
         queryset.update(active = True)

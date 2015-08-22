@@ -1,9 +1,14 @@
 from django.contrib import admin
-from models import PrivateUser
+from models import PrivateUser, Friend
 
 """
 Administracion User
 """
+
+
+class FriendInline(admin.TabularInline):
+    model = Friend
+    fk_name = "user"
 
 
 class PrivateUserAdmin(admin.ModelAdmin):
@@ -25,7 +30,11 @@ class PrivateUserAdmin(admin.ModelAdmin):
     list_display_links = ['name', 'last_name','email']
     list_filter = ['active','created_at','modified_at']
     search_fields = ['id','name', 'last_name','email']
-    actions=['make_active','make_desactive']
+    actions = ['make_active','make_desactive']
+    inlines = [
+        FriendInline,
+    ]
+
 
     def make_active(self, queryset):
         queryset.update(active = True)

@@ -13,7 +13,7 @@ class Group(models.Model):
     active = models.BooleanField(default=True)
     orders = models.ManyToManyField(Order, blank=True)
     members = models.ManyToManyField(Member, blank=True)
-    settings = models.ForeignKey("GroupSetting", blank=True)
+    settings = models.ManyToManyField("GroupSetting", blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -40,3 +40,7 @@ class Group(models.Model):
 
 class GroupSetting(models.Model):
     name = models.CharField(max_length=200)
+    active = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return str(self.id) + ' ' + self.name

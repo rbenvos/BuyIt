@@ -11,12 +11,14 @@ class Item(models.Model):
     active = models.BooleanField(default=True)
     purchased = models.BooleanField(default=True)
     amount = models.PositiveIntegerField(default=0)
-    product = models.ForeignKey("Product")
+    product = models.ForeignKey("Product", blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
+        """
+        On save, update timestamps
+        """
         if not self.id:
             self.created_at = datetime.datetime.today()
         self.modified_at = datetime.datetime.today()
