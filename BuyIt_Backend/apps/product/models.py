@@ -38,16 +38,10 @@ Clase producto
 
 
 class Product(models.Model):
-
-    UNITS = (
-        ('kg', 'Kilogramos'),
-        ('l', 'Litros')
-    )
-
     name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
-    quantity = models.PositiveIntegerField(default=0, blank=True)
-    measure = models.CharField(max_length=3, choices=UNITS, blank=True)
+    quantity = models.ForeignKey('Quantity', blank=True, null=True)
+    measure = models.ForeignKey('Measure', blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -62,3 +56,42 @@ class Product(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Quantity(models.Model):
+    name = models.CharField(max_length=200)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        On save, update timestamps
+        """
+        if not self.id:
+            self.created_at = datetime.datetime.today()
+        self.modified_at = datetime.datetime.today()
+        return super(Quantity, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Measure(models.Model):
+    name = models.CharField(max_length=200)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        On save, update timestamps
+        """
+        if not self.id:
+            self.created_at = datetime.datetime.today()
+        self.modified_at = datetime.datetime.today()
+        return super(Measure, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+

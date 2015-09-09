@@ -83,6 +83,12 @@ class Friend(models.Model):
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     active = models.BooleanField(default=True)
 
+    def __unicode__(self):
+        return str(self.id)
+
+    def get_user_name(self):
+        return self.user.name + ' ' + self.user.last_name
+
 
 class Phone(models.Model):
     phone = models.CharField(max_length=9, unique=True)
@@ -91,3 +97,11 @@ class Phone(models.Model):
 
     def __unicode__(self):
         return str(self.id) + " - " + self.phone
+
+    def users(self):
+        return self.privateuser_set.all()
+    users.short_description = "User"
+
+    def num_users(self):
+        return self.privateuser_set.all().count()
+    num_users.short_description = "Num User"

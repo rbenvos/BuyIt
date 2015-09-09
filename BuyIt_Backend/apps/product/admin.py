@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Item
+from .models import Product, Item, Measure, Quantity
 
 """
 Administracion Product
@@ -10,6 +10,7 @@ class ProductResource(resources.ModelResource):
         model = Product
         exclude = ('active','avatar','quantity','measure','created_at','modified_at')
 """
+
 
 class ProductAdmin(admin.ModelAdmin): #ImportExportModelAdmin,
     list_display = ['id','active','name','quantity','measure','created_at','modified_at']
@@ -40,9 +41,12 @@ class ProductAdmin(admin.ModelAdmin): #ImportExportModelAdmin,
         queryset.update(active = False)
     make_desactive.short_description = "Mark selected as desactive"
 
+
 """
 Administracion Item
 """
+
+
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['id','active','purchased','amount','product','get_order','created_at','modified_at']
     list_display_links = ['id']
@@ -58,5 +62,41 @@ class ItemAdmin(admin.ModelAdmin):
     make_desactive.short_description = "Mark selected as desactive"
 
 
+"""
+Administracion Measure
+"""
+
+
+class MeasureAdmin(admin.ModelAdmin):
+    model = Measure
+
+    def make_active(modeladmin, request, queryset):
+        queryset.update(active=True)
+    make_active.short_description = "Mark selected as active"
+
+    def make_desactive(modeladmin, request, queryset):
+        queryset.update(active=False)
+    make_desactive.short_description = "Mark selected as desactive"
+
+
+"""
+Administracion Quantity
+"""
+
+
+class QuantityAdmin(admin.ModelAdmin):
+    model = Quantity
+
+    def make_active(modeladmin, request, queryset):
+        queryset.update(active=True)
+    make_active.short_description = "Mark selected as active"
+
+    def make_desactive(modeladmin, request, queryset):
+        queryset.update(active=False)
+    make_desactive.short_description = "Mark selected as desactive"
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Item, ItemAdmin)
+admin.site.register(Measure, MeasureAdmin)
+admin.site.register(Quantity, QuantityAdmin)
