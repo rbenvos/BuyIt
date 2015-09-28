@@ -13,7 +13,7 @@ class PrivateUserSerializer(serializers.Serializer):
 
     class Meta:
         model = PrivateUser
-        fields = ('email', 'name', 'last_name', 'active')
+        fields = ('id', 'email', 'name', 'last_name', 'active')
         read_only_fields = ('_get_device', '_get_friends', '_get_phones')
         write_only_fields = ('password',)
 

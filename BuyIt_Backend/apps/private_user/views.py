@@ -1,25 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSet
 from apps.private_user.models import PrivateUser
 from apps.private_user.serializers import PrivateUserSerializer
 
 
-class PrivateUserList(APIView):
+class PrivateUserViewSet(ViewSet):
     """
-    List all snippets, or create a new snippet.
+    A viewset that provides the standard actions
     """
-    def get(self, request, format=None):
-        private_users = PrivateUser.objects.all()
-        serializer = PrivateUserSerializer(private_users, many=True)
-        return Response(serializer.data)
 
-    def post(self, request):
-        serializer = PrivateUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def list(self, request, *args, **kwargs):
+        queryset = PrivateUser.objects.all()
+        serializer_class = PrivateUserSerializer(queryset, many=True)
+        return Response(serializer_class.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = PrivateUser.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = PrivateUserSerializer(user)
+        return Response(serializer.data)

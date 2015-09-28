@@ -1,9 +1,12 @@
-from django.conf.urls import url
-from rest_framework.urlpatterns import format_suffix_patterns
-from apps.private_user.views import PrivateUserList
+from django.conf.urls import url, include
+from apps.private_user.routers import PrivateUserRouter
+from apps.private_user.views import PrivateUserViewSet
 
-urlpatterns = [
-    url(r'^users/$', PrivateUserList.as_view()),
-]
+router = PrivateUserRouter()
+router.register(prefix='users',
+                viewset=PrivateUserViewSet,
+                base_name='private-user')
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = patterns = (
+    url(r'', include(router.urls)),
+)
