@@ -8,10 +8,8 @@ Administracion User
 
 
 class FriendInline(admin.TabularInline):
-    model = Friend
-    fields = ('active', 'get_user_name')
-    readonly_fields = ('get_user_name',)
-    can_delete = True
+    model = PrivateUser.friends.through
+    extra = 1
 
 
 class DeviceInline(admin.TabularInline):

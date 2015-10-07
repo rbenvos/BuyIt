@@ -40,9 +40,5 @@ class Device(models.Model):
         return self.os + " - " + self.id_device
 
     def users(self):
-        return self.privateuser_set.all()
+        return self.users_set()
     users.short_description = "User"
-
-    def num_users(self):
-        return self.privateuser_set.all().count()
-    num_users.short_description = "Num User"

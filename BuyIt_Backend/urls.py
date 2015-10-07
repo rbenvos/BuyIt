@@ -20,4 +20,5 @@ import apps
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('apps.private_user.urls')),
+    url(r'', include('apps.device.urls')),
 ]

@@ -19,3 +19,14 @@ class PrivateUserRouter(SimpleRouter):
             initkwargs={'suffix': 'detail'}
         )
     ]
+
+
+class PhoneRouter(SimpleRouter):
+    routes = [
+        Route(
+            url=r'^{prefix}/{lookup}/phones',
+            mapping={'get': 'list'},
+            name='{basename}-phones-list',
+            initkwargs={'suffix': 'phones-list'}
+        )
+    ]

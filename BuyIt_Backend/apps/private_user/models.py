@@ -12,10 +12,10 @@ class PrivateUser(models.Model):
     password = models.CharField(max_length=200, blank=True)
     name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
-    device = models.ManyToManyField(Device, blank=True)
+    device = models.ManyToManyField(Device, blank=True, related_name='user')
     active = models.BooleanField(default=True)
-    friends = models.ManyToManyField("Friend", blank=True)
-    phones = models.ForeignKey("Phone", blank=True, null=True)
+    friends = models.ManyToManyField("Friend", blank=True, related_name='friends')
+    phones = models.ForeignKey("Phone", blank=True, null=True, related_name='user')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now, editable=False, blank=True)
 
@@ -79,7 +79,7 @@ class PrivateUser(models.Model):
 
 
 class Friend(models.Model):
-    user = models.ForeignKey("PrivateUser", null=True)
+    user = models.ForeignKey("PrivateUser", null=True, related_name='user')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     active = models.BooleanField(default=True)
 

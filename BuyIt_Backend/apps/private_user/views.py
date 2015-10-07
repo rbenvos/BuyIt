@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from apps.private_user.models import PrivateUser
-from apps.private_user.serializers import PrivateUserSerializer
+from apps.private_user.serializers import PrivateUserSerializer, PhoneSerializer
 
 
 class PrivateUserViewSet(ViewSet):
@@ -21,4 +21,13 @@ class PrivateUserViewSet(ViewSet):
         queryset = PrivateUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
         serializer = PrivateUserSerializer(user)
+        return Response(serializer.data)
+
+
+class PhoneViewSet(ViewSet):
+
+    def list(self, request, pk=None):
+        queryset = PrivateUser.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = PhoneSerializer(user.phones)
         return Response(serializer.data)

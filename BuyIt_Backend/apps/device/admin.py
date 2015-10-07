@@ -13,10 +13,10 @@ class DeviceAdmin(admin.ModelAdmin):
             'fields': ['id_device', 'active', 'os']
         }),
     )
-    list_display = ['id', 'id_device', 'active', 'os', 'num_users', 'created_at', 'modified_at']
+    list_display = ['id', 'id_device', 'active', 'os', 'created_at', 'modified_at']
     list_filter = ['active', 'created_at']
     list_display_links = ['id', 'id_device']
-    search_fields = ['id', 'id_device', 'numUsers']
+    search_fields = ['id', 'id_device']
     actions=['make_active', 'make_desactive']
     inlines = [
         DeviceInline
